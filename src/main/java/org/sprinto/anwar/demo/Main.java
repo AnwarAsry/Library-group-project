@@ -39,8 +39,8 @@ public class Main {
             Boolean loggedIn = true;
 
             while (loggedIn) {
-                System.out.println("1. Lista alla böcker");
-                System.out.println("2. Logga ut");
+                System.out.println("\n1. List all books");
+                System.out.println("2. Log out");
 
                 int choice = sc.nextInt();
                 sc.nextLine();
@@ -53,10 +53,10 @@ public class Main {
                         break;
                     case 2:
                         loggedIn = false;
-                        currentBorrower = null;
+                        System.out.println("Logged out.\n");
                         break;
                     default:
-                        System.out.println("Ogiltigt val. Försök igen.");
+                        System.out.println("Invalid choice. Try again.");
                         break;
                 }
             }
