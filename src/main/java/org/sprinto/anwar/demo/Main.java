@@ -20,9 +20,9 @@ public class Main {
         Author authorOskar = new Author("Oskar Devloop");
 
         List<Book> books = new ArrayList<Book>();
-        books.add(new Book("Harry potter", "fantasy", authorJK));
-        books.add(new Book("Sagan om ringen", "fantasy", authorMartinG));
-        books.add(new Book("Star wars", "sci-fi", authorOskar));
+        books.add(new Book("Harry potter", "fantasy", authorJK, 2452));
+        books.add(new Book("Sagan om ringen", "fantasy", authorMartinG, 235));
+        books.add(new Book("Star wars", "sci-fi", authorOskar, 948));
 
         List<Loan> loans = new ArrayList<>();
 
@@ -35,8 +35,10 @@ public class Main {
             }
 
             while (loggedIn) {
-                System.out.println("1. Lista alla böcker");
-                System.out.println("2. Logga ut");
+                System.out.println("1. List all books");
+                System.out.println("2. Borrow book");
+                System.out.println("3. List loans");
+                System.out.println("4. Log out");
                 int choice = sc.nextInt();
                 sc.nextLine();
                 switch (choice) {
@@ -46,12 +48,42 @@ public class Main {
                         }
                         break;
                     case 2:
+                        System.out.println("ISBN?: ");
+                        int isbn = sc.nextInt();
+                        sc.nextLine();
+                        for (Book book : books) {
+                            if (book.getIsbn() == isbn) {
+                                Boolean check = checkLoan(loans, book);
+                                if (!check) {
+                                    loans.add(new Loan("2025/09/18", "2025/10/18", book, currentBorrower));
+                                    System.out.println("You have now borrowed that book");
+                                }
+                            }
+                        }
+                        break;
+                    case 3:
+                        for (Loan loan : loans) {
+                            System.out.println(loan.getBook().getTitle());
+                        }
+                        break;
+                    case 4:
                         loggedIn = false;
                         currentBorrower = null;
                         break;
                 }
             }
         }
+    }
+
+    public static Boolean checkLoan(List<Loan> loans, Book book) {
+        for (Loan loan : loans) {
+            if (book.getIsbn() == loan.getBook().getIsbn()) {
+                // om utlånad
+                return true;
+            }
+        }
+        // om inte utlånad
+        return false;
     }
 
     public static Borrower loginMeny(List<Borrower> borrowers) {

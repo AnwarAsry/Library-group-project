@@ -4,11 +4,13 @@ public class Book {
     private String title;
     private String genre;
     private Author author;
+    private int isbn;
 
-    public Book(String title, String genre, Author author) {
+    public Book(String title, String genre, Author author, int isbn) {
         this.title = title;
         this.genre = genre;
         this.author = author;
+        this.isbn = isbn;
     }
 
     public String getTitle() {
@@ -33,5 +35,13 @@ public class Book {
 
     public void setAuthor(Author author) {
         this.author = author;
+    }
+
+    public int getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(int isbn) {
+        this.isbn = isbn;
     }
 }
